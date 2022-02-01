@@ -37,7 +37,7 @@ namespace Alarm501
                 sr.Close();
             }
             //set the listbox/View's datasource to be alarm list
-            uxAlarmList.DataSource = _alarms;
+            //uxAlarmList.DataSource = MyAlarms;
 
             var myTimer = new System.Timers.Timer(1000);
             // Define the event handler
@@ -49,7 +49,7 @@ namespace Alarm501
             myTimer.Start();
 
 
-            if (uxAlarmList.SelectedItems != null) uxEdit.Enabled = true;
+            //if (uxAlarmList.SelectedItems != null) uxEdit.Enabled = true;
             
         }
 
@@ -78,22 +78,22 @@ namespace Alarm501
         /// <summary>
         /// Private backing variable for the alarms list
         /// </summary>
-        private List<Alarm> _alarms = new List<Alarm>();
+        private List<Alarm> MyAlarms = new List<Alarm>();
         
-        /// <summary>
-        /// Property that holds all alarms
-        /// </summary>
-        public List<Alarm> alarmList
-        {
-            get
-            {
-                return _alarms;
-            }
-            set
-            {
-                _alarms = value;
-            }
-        }
+        ///// <summary>
+        ///// Property that holds all alarms
+        ///// </summary>
+        //public List<Alarm> alarmList
+        //{
+        //    get
+        //    {
+        //        return _alarms;
+        //    }
+        //    set
+        //    {
+        //        _alarms = value;
+        //    }
+        //}
 
 
         
@@ -111,10 +111,12 @@ namespace Alarm501
 
         public void addToList(Alarm a)
         {
-            _alarms.Add(a);
+            MyAlarms.Add(a);
+            uxAlarmList.DataSource = MyAlarms;
+            //Cant add 2
             uxAlarmList.Refresh();
 
-
+            uxEdit.Enabled = true;
             //Need to add the alarm to the list with
             //uxAlarmList.Items.Add(alarm);
 

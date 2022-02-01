@@ -33,11 +33,6 @@ namespace Alarm501
             set {_timePicker = value;}
         }
 
-        public void alarmGoingOff()
-        {
-            //uxMainWindow.instance;
-                
-        }
 
         private void InitializeTimePick()
         {

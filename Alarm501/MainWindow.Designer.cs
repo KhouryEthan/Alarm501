@@ -29,15 +29,19 @@ namespace Alarm501
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uxEdit = new System.Windows.Forms.Button();
             this.uxAdd = new System.Windows.Forms.Button();
             this.uxSnooze = new System.Windows.Forms.Button();
             this.uxStop = new System.Windows.Forms.Button();
             this.uxAlarmList = new System.Windows.Forms.ListBox();
+            this.alarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.alarmBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // uxEdit
             // 
+            this.uxEdit.Enabled = false;
             this.uxEdit.Location = new System.Drawing.Point(29, 33);
             this.uxEdit.Name = "uxEdit";
             this.uxEdit.Size = new System.Drawing.Size(104, 48);
@@ -57,6 +61,7 @@ namespace Alarm501
             // 
             // uxSnooze
             // 
+            this.uxSnooze.Enabled = false;
             this.uxSnooze.Location = new System.Drawing.Point(29, 372);
             this.uxSnooze.Name = "uxSnooze";
             this.uxSnooze.Size = new System.Drawing.Size(104, 48);
@@ -66,6 +71,7 @@ namespace Alarm501
             // 
             // uxStop
             // 
+            this.uxStop.Enabled = false;
             this.uxStop.Location = new System.Drawing.Point(160, 372);
             this.uxStop.Name = "uxStop";
             this.uxStop.Size = new System.Drawing.Size(104, 48);
@@ -75,11 +81,17 @@ namespace Alarm501
             // 
             // uxAlarmList
             // 
+            this.uxAlarmList.DataSource = this.alarmBindingSource;
+            this.uxAlarmList.DisplayMember = "setTime";
             this.uxAlarmList.FormattingEnabled = true;
             this.uxAlarmList.Location = new System.Drawing.Point(29, 99);
             this.uxAlarmList.Name = "uxAlarmList";
             this.uxAlarmList.Size = new System.Drawing.Size(235, 264);
             this.uxAlarmList.TabIndex = 5;
+            // 
+            // alarmBindingSource
+            // 
+            this.alarmBindingSource.DataSource = typeof(Alarm501.Alarm);
             // 
             // uxMainWindow
             // 
@@ -94,6 +106,7 @@ namespace Alarm501
             this.Name = "uxMainWindow";
             this.Text = "Alarm501";
             this.Load += new System.EventHandler(this.uxMainWindow_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.alarmBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -105,6 +118,7 @@ namespace Alarm501
         private System.Windows.Forms.Button uxSnooze;
         private System.Windows.Forms.Button uxStop;
         private System.Windows.Forms.ListBox uxAlarmList;
+        private System.Windows.Forms.BindingSource alarmBindingSource;
     }
 }
 
