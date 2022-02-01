@@ -29,11 +29,12 @@ namespace Alarm501
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.uxEdit = new System.Windows.Forms.Button();
             this.uxAdd = new System.Windows.Forms.Button();
-            this.uxAlarmList = new System.Windows.Forms.ListBox();
             this.uxSnooze = new System.Windows.Forms.Button();
             this.uxStop = new System.Windows.Forms.Button();
+            this.uxAlarmList = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // uxEdit
@@ -53,14 +54,7 @@ namespace Alarm501
             this.uxAdd.TabIndex = 1;
             this.uxAdd.Text = "+";
             this.uxAdd.UseVisualStyleBackColor = true;
-            // 
-            // uxAlarmList
-            // 
-            this.uxAlarmList.FormattingEnabled = true;
-            this.uxAlarmList.Location = new System.Drawing.Point(29, 108);
-            this.uxAlarmList.Name = "uxAlarmList";
-            this.uxAlarmList.Size = new System.Drawing.Size(235, 225);
-            this.uxAlarmList.TabIndex = 2;
+            this.uxAdd.Click += new System.EventHandler(this.uxAdd_Click);
             // 
             // uxSnooze
             // 
@@ -80,18 +74,31 @@ namespace Alarm501
             this.uxStop.Text = "Stop";
             this.uxStop.UseVisualStyleBackColor = true;
             // 
+            // uxAlarmList
+            // 
+            this.uxAlarmList.HideSelection = false;
+            this.uxAlarmList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.uxAlarmList.Location = new System.Drawing.Point(29, 87);
+            this.uxAlarmList.Name = "uxAlarmList";
+            this.uxAlarmList.Size = new System.Drawing.Size(235, 269);
+            this.uxAlarmList.TabIndex = 5;
+            this.uxAlarmList.UseCompatibleStateImageBehavior = false;
+            this.uxAlarmList.View = System.Windows.Forms.View.List;
+            // 
             // uxMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 465);
+            this.ClientSize = new System.Drawing.Size(300, 464);
+            this.Controls.Add(this.uxAlarmList);
             this.Controls.Add(this.uxStop);
             this.Controls.Add(this.uxSnooze);
-            this.Controls.Add(this.uxAlarmList);
             this.Controls.Add(this.uxAdd);
             this.Controls.Add(this.uxEdit);
             this.Name = "uxMainWindow";
             this.Text = "Alarm501";
+            this.Load += new System.EventHandler(this.uxMainWindow_Load);
             this.ResumeLayout(false);
 
         }
@@ -100,9 +107,9 @@ namespace Alarm501
 
         private System.Windows.Forms.Button uxEdit;
         private System.Windows.Forms.Button uxAdd;
-        private System.Windows.Forms.ListBox uxAlarmList;
         private System.Windows.Forms.Button uxSnooze;
         private System.Windows.Forms.Button uxStop;
+        private System.Windows.Forms.ListView uxAlarmList;
     }
 }
 
