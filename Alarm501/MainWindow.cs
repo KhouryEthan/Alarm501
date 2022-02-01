@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Alarm501
@@ -23,8 +25,56 @@ namespace Alarm501
             uxSnooze.Enabled = false;
             uxStop.Enabled = false;
             uxEdit.Enabled = false;
+
+            if (File.Exists("..\\..\\AlarmData.txt"))
+            {
+                StreamReader sr = new StreamReader("..\\..\\AlarmData.txt");
+                while (!sr.EndOfStream)
+                {
+                    string[] alarmData = sr.ReadLine().Split(',');
+                    
+                    
+                }
+                sr.Close();
+            }
+            //set the listbox/View's datasource to be alarm list
+
+
+            var myTimer = new System.Timers.Timer(1000);
+            // Define the event handler
+            myTimer.Elapsed += CheckAlarms;
+            // Synchronize the timer with the text box
+            myTimer.SynchronizingObject = this;
+            // Start the timer
+            myTimer.AutoReset = true;
+            myTimer.Start();
+
+
+            if (uxAlarmList.SelectedItems != null) uxEdit.Enabled = true;
         }
 
+        private void CheckAlarms(object sender, ElapsedEventArgs e)
+        {
+            DateTime curr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            foreach (Alarm a in uxAlarmList.Items)
+            {
+                if (a.Status == "Running" && TimeSpan.Compare(a.setTime.TimeOfDay, curr.TimeOfDay) == 0)
+                {
+                    //SignalAlarm(uxAlarmList.Items.IndexOf(a));
+                }
+            }
+        }
+
+        private void SignalAlarm()
+        {
+
+        }
+
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Private backing variable for the alarms list
         /// </summary>
@@ -64,7 +114,7 @@ namespace Alarm501
 
             var item = new ListViewItem(a.AlarmDisplay);
             uxAlarmList.Items.Add(item);
-            uxAlarmList.Items.Add("Test Alarm");
+            
             uxAlarmList.Refresh();
 
 
@@ -72,5 +122,26 @@ namespace Alarm501
             //uxAlarmList.Items.Add(alarm);
 
         }
+
+
+
+        //Timer Implementation
+
+        //System.Timers.Timer timer;
+
+        //private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        //{
+
+
+        //    DateTime currentTime = DateTime.Now;
+
+        //    if (currentTime.Hour == setTime.Hour && currentTime.Minute == setTime.Minute && currentTime.Second == setTime.Second)
+        //    {
+        //        timer.Stop();
+        //        Status = "TIMER GOING OFF!";
+
+        //        //Set off timer
+        //    }
+        //}
     }
 }

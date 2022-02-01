@@ -33,7 +33,11 @@ namespace Alarm501
             set {_timePicker = value;}
         }
 
-        
+        public void alarmGoingOff()
+        {
+            //uxMainWindow.instance;
+                
+        }
 
         private void InitializeTimePick()
         {
@@ -65,6 +69,8 @@ namespace Alarm501
         /// <param name="e"></param>
         private void uxSet_Click(object sender, EventArgs e)
         {
+            
+            
             String time = timePicker.Value.ToString();
             Alarm alarmToAdd = createAlarm();
             uxMainWindow.instance.addToList(alarmToAdd);
@@ -75,7 +81,7 @@ namespace Alarm501
         {
             DateTime currAlarmTime = timePicker.Value;
             String timeValue = timePicker.Value.ToString();
-            Alarm a = new Alarm(timePicker.Value);
+            Alarm a = new Alarm(timePicker.Value, "Runnning");
             a.setTime = currAlarmTime;
             if (uxToggle.Checked) a.Toggle = true;
             else { a.Toggle = false; }
