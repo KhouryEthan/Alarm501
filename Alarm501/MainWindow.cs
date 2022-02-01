@@ -15,16 +15,14 @@ namespace Alarm501
     public partial class uxMainWindow : Form
     {
         public static uxMainWindow instance;
-        public static ListView listView;
+        public static ListBox listBox;
 
         public uxMainWindow()
         {
             InitializeComponent();
             instance = this;
-            listView = uxAlarmList;
-            uxSnooze.Enabled = false;
-            uxStop.Enabled = false;
-            uxEdit.Enabled = false;
+            listBox = uxAlarmList;
+
 
             if (File.Exists("..\\..\\AlarmData.txt"))
             {
@@ -32,13 +30,14 @@ namespace Alarm501
                 while (!sr.EndOfStream)
                 {
                     string[] alarmData = sr.ReadLine().Split(',');
-                    
+                    bool running = alarmData[3] == "Running";
+                    //alarmList.Add(new Alarm())
                     
                 }
                 sr.Close();
             }
             //set the listbox/View's datasource to be alarm list
-
+            uxAlarmList.DataSource = _alarms;
 
             var myTimer = new System.Timers.Timer(1000);
             // Define the event handler
@@ -51,23 +50,24 @@ namespace Alarm501
 
 
             if (uxAlarmList.SelectedItems != null) uxEdit.Enabled = true;
+            
         }
 
         private void CheckAlarms(object sender, ElapsedEventArgs e)
         {
             DateTime curr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            foreach (Alarm a in uxAlarmList.Items)
-            {
-                if (a.Status == "Running" && TimeSpan.Compare(a.setTime.TimeOfDay, curr.TimeOfDay) == 0)
-                {
-                    //SignalAlarm(uxAlarmList.Items.IndexOf(a));
-                }
-            }
+            //foreach (Alarm a in alarmList)
+            //{
+            //    if (a.Status == "Running" && TimeSpan.Compare(a.setTime.TimeOfDay, curr.TimeOfDay) == 0)
+            //    {
+            //        //SignalAlarm(uxAlarmList.Items.IndexOf(a));
+            //    }
+            //}
         }
 
         private void SignalAlarm()
         {
-
+            
         }
 
 
@@ -78,12 +78,12 @@ namespace Alarm501
         /// <summary>
         /// Private backing variable for the alarms list
         /// </summary>
-        private List<Alarm> _alarms;
+        private List<Alarm> _alarms = new List<Alarm>();
         
         /// <summary>
         /// Property that holds all alarms
         /// </summary>
-        public List<Alarm> Alarms
+        public List<Alarm> alarmList
         {
             get
             {
@@ -111,10 +111,7 @@ namespace Alarm501
 
         public void addToList(Alarm a)
         {
-
-            var item = new ListViewItem(a.AlarmDisplay);
-            uxAlarmList.Items.Add(item);
-            
+            _alarms.Add(a);
             uxAlarmList.Refresh();
 
 
