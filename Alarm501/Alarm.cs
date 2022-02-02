@@ -63,8 +63,7 @@ namespace Alarm501
             {
                 if (IsSnoozed)
                 {
-                    SetTime = SetTime.AddSeconds(3.00);
-                    //IsSnoozed = false;
+                    _IsSnoozed = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsSnoozed"));
                 }
             }
@@ -74,7 +73,9 @@ namespace Alarm501
         public bool Toggle
         {
             get { return _toggle; }
-            set { _toggle = value;  }
+            set { _toggle = value;
+                this.ToString();
+            }
         }
     }
 }

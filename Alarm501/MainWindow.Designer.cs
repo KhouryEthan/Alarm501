@@ -35,8 +35,8 @@ namespace Alarm501
             this.uxSnooze = new System.Windows.Forms.Button();
             this.uxStop = new System.Windows.Forms.Button();
             this.uxAlarmList = new System.Windows.Forms.ListBox();
-            this.alarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.uxLabel = new System.Windows.Forms.Label();
+            this.alarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.alarmBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,6 +81,7 @@ namespace Alarm501
             this.uxStop.TabIndex = 4;
             this.uxStop.Text = "Stop";
             this.uxStop.UseVisualStyleBackColor = true;
+            this.uxStop.Click += new System.EventHandler(this.uxStop_Click);
             // 
             // uxAlarmList
             // 
@@ -91,10 +92,6 @@ namespace Alarm501
             this.uxAlarmList.TabIndex = 5;
             this.uxAlarmList.SelectedIndexChanged += new System.EventHandler(this.uxAlarmList_SelectedIndexChanged);
             // 
-            // alarmBindingSource
-            // 
-            this.alarmBindingSource.DataSource = typeof(Alarm501.Alarm);
-            // 
             // uxLabel
             // 
             this.uxLabel.AutoSize = true;
@@ -102,6 +99,10 @@ namespace Alarm501
             this.uxLabel.Name = "uxLabel";
             this.uxLabel.Size = new System.Drawing.Size(0, 13);
             this.uxLabel.TabIndex = 6;
+            // 
+            // alarmBindingSource
+            // 
+            this.alarmBindingSource.DataSource = typeof(Alarm501.Alarm);
             // 
             // uxMainWindow
             // 

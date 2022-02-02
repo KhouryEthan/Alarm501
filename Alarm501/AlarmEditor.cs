@@ -13,7 +13,7 @@ namespace Alarm501
 {
     public partial class AlarmEditor : Form
     {
-        public static AlarmEditor instance;
+        //public static AlarmEditor instance;
         private bool IsEditing;
         private Alarm alarm;
 
@@ -21,14 +21,13 @@ namespace Alarm501
         {
             InitializeComponent();
             InitializeTimePick();
-            instance = this;
-            bool IsEditing = e;
+            //instance = this;
+            this.IsEditing = e;
             alarm = a;
             if (IsEditing)
             {
                 uxToggle.Checked = alarm.Toggle;
                 timePicker.Value = alarm.SetTime;
-
             }
 
         }
