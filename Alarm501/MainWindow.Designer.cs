@@ -48,6 +48,7 @@ namespace Alarm501
             this.uxEdit.TabIndex = 0;
             this.uxEdit.Text = "Edit";
             this.uxEdit.UseVisualStyleBackColor = true;
+            this.uxEdit.Click += new System.EventHandler(this.uxEdit_Click);
             // 
             // uxAdd
             // 
@@ -62,7 +63,7 @@ namespace Alarm501
             // uxSnooze
             // 
             this.uxSnooze.Enabled = false;
-            this.uxSnooze.Location = new System.Drawing.Point(29, 372);
+            this.uxSnooze.Location = new System.Drawing.Point(29, 404);
             this.uxSnooze.Name = "uxSnooze";
             this.uxSnooze.Size = new System.Drawing.Size(104, 48);
             this.uxSnooze.TabIndex = 3;
@@ -72,7 +73,7 @@ namespace Alarm501
             // uxStop
             // 
             this.uxStop.Enabled = false;
-            this.uxStop.Location = new System.Drawing.Point(160, 372);
+            this.uxStop.Location = new System.Drawing.Point(160, 404);
             this.uxStop.Name = "uxStop";
             this.uxStop.Size = new System.Drawing.Size(104, 48);
             this.uxStop.TabIndex = 4;
@@ -81,13 +82,12 @@ namespace Alarm501
             // 
             // uxAlarmList
             // 
-            this.uxAlarmList.DataSource = this.alarmBindingSource;
-            this.uxAlarmList.DisplayMember = "setTime";
             this.uxAlarmList.FormattingEnabled = true;
             this.uxAlarmList.Location = new System.Drawing.Point(29, 99);
             this.uxAlarmList.Name = "uxAlarmList";
             this.uxAlarmList.Size = new System.Drawing.Size(235, 264);
             this.uxAlarmList.TabIndex = 5;
+            this.uxAlarmList.SelectedIndexChanged += new System.EventHandler(this.uxAlarmList_SelectedIndexChanged);
             // 
             // alarmBindingSource
             // 
@@ -117,7 +117,7 @@ namespace Alarm501
         private System.Windows.Forms.Button uxAdd;
         private System.Windows.Forms.Button uxSnooze;
         private System.Windows.Forms.Button uxStop;
-        private System.Windows.Forms.ListBox uxAlarmList;
+        public System.Windows.Forms.ListBox uxAlarmList;
         private System.Windows.Forms.BindingSource alarmBindingSource;
     }
 }

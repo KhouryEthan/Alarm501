@@ -14,12 +14,23 @@ namespace Alarm501
     public partial class AlarmEditor : Form
     {
         public static AlarmEditor instance;
+        private bool IsEditing;
+        private Alarm alarm;
 
-        public AlarmEditor()
+        public AlarmEditor(bool e, Alarm a)
         {
             InitializeComponent();
             InitializeTimePick();
             instance = this;
+            bool IsEditing = e;
+            alarm = a;
+            if (IsEditing)
+            {
+                uxToggle.Checked = alarm.Toggle;
+                timePicker.Value = alarm.SetTime;
+
+            }
+
         }
 
 
@@ -57,34 +68,32 @@ namespace Alarm501
             //}
         }
 
-        /// <summary>
+
         /// Sets alarm and adds it to the list
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void uxSet_Click(object sender, EventArgs e)
-        {
-            
-            
-            String time = timePicker.Value.ToString();
-            Alarm alarmToAdd = createAlarm();
-            uxMainWindow.instance.addToList(alarmToAdd);
-            Close();
+        {  
+                Alarm alarmToAdd = createAlarm();
+                uxMainWindow.instance.addToList(alarmToAdd);
+                Close();
         }
 
         private Alarm createAlarm()
         {
             DateTime currAlarmTime = timePicker.Value;
-            String timeValue = timePicker.Value.ToString();
-            Alarm a = new Alarm(timePicker.Value, "Runnning");
-            a.setTime = currAlarmTime;
-            if (uxToggle.Checked) a.Toggle = true;
-            else { a.Toggle = false; }
+            Alarm a = new Alarm(timePicker.Value);
+            a.SetTime = currAlarmTime;
             
+            if (uxToggle.Checked)
+            {
+                a.Toggle = true;
+            }
+            else
+            {
+                a.Toggle = false;
+            }
 
             return a;
         }
-
 
         /// <summary>
         /// Click event that causes form to close

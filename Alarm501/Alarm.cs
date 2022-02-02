@@ -1,83 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alarm501
 {
-    public class Alarm : AlarmEditor
+    public class Alarm : INotifyPropertyChanged
     {
-        //System.Timers.Timer timer;
+        ////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// INotifyPropertyChanged Implementation
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(s));
 
-        //private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        //{
-        //    DateTime currentTime = DateTime.Now;
-
-        //    if (currentTime.Hour == setTime.Hour && currentTime.Minute == setTime.Minute && currentTime.Second == setTime.Second)
-        //    {
-        //        timer.Stop();
-        //        Status = "TIMER GOING OFF!";
-                
-        //        //Set off timer
-        //    }
-        //}
-
-
-        public Alarm(DateTime t, String s)
-        {
-            DateTime setTime = t.ToLocalTime();
-            String Status = s;
-        }
-
-
-        DateTime _setTime;
+        //////////////////////////////////////////////////////////////////////
+        private bool _IsSnoozed;
+        DateTime _SetTime;
         bool _toggle;
 
 
-        public int Minutes { get; set; }
-
-        public int Hours { get; set; }
-
-        public int Seconds { get; set; }
-
-
-        DateTime currentTime { get { return DateTime.Now; } }
-
-        public DateTime setTime
+        //Constructor
+        public Alarm(DateTime t)
         {
-            get { return _setTime; }
-            set { _setTime = value; }
+            DateTime setTime = t;
         }
 
-        public String Status 
+
+        public DateTime SetTime
         {
-            get;
-            set;
+            get { return _SetTime; }
+            set 
+            { 
+                  _SetTime = value; 
+                  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetTime")); 
+            }
         }
 
+        //What I want to populate ListBox
+        public override string ToString()
+        {
+            if (Toggle)
+            {
+                return SetTime.ToString("hh:mm tt      ") + "       On"  ;
+            }
+            else
+            {
+                return SetTime.ToString("hh:mm tt      ") + "        Off";
+            }
+            
+        }
+
+        //Adds 3 Seconds if snoozed
+        public bool IsSnoozed
+        {
+            get { return _IsSnoozed; }
+            set
+            {
+                if (IsSnoozed)
+                {
+                    SetTime = SetTime.AddSeconds(3.00);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsSnoozed"));
+                }
+            }
+        }
+
+        //      On/Off Function
         public bool Toggle
         {
             get { return _toggle; }
             set { _toggle = value;  }
-        }
-
-        public String AlarmDisplay 
-        {
-            get
-            {
-                if (Toggle == true)
-                {
-                    return (setTime.TimeOfDay + "     On");
-
-                }
-                else
-                {
-                    return (setTime.TimeOfDay + "    Off");
-
-                }
-            }
         }
     }
 }

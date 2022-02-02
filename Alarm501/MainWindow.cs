@@ -15,29 +15,14 @@ namespace Alarm501
     public partial class uxMainWindow : Form
     {
         public static uxMainWindow instance;
-        public static ListBox listBox;
+
 
         public uxMainWindow()
         {
             InitializeComponent();
             instance = this;
-            listBox = uxAlarmList;
-
-
-            if (File.Exists("..\\..\\AlarmData.txt"))
-            {
-                StreamReader sr = new StreamReader("..\\..\\AlarmData.txt");
-                while (!sr.EndOfStream)
-                {
-                    string[] alarmData = sr.ReadLine().Split(',');
-                    bool running = alarmData[3] == "Running";
-                    //alarmList.Add(new Alarm())
-                    
-                }
-                sr.Close();
-            }
-            //set the listbox/View's datasource to be alarm list
-            //uxAlarmList.DataSource = MyAlarms;
+            uxAlarmList.FormattingEnabled = false;
+            uxAlarmList.DataSource = MyAlarms;
 
             var myTimer = new System.Timers.Timer(1000);
             // Define the event handler
@@ -47,55 +32,31 @@ namespace Alarm501
             // Start the timer
             myTimer.AutoReset = true;
             myTimer.Start();
-
-
-            //if (uxAlarmList.SelectedItems != null) uxEdit.Enabled = true;
-            
         }
 
         private void CheckAlarms(object sender, ElapsedEventArgs e)
         {
             DateTime curr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            //foreach (Alarm a in alarmList)
-            //{
-            //    if (a.Status == "Running" && TimeSpan.Compare(a.setTime.TimeOfDay, curr.TimeOfDay) == 0)
-            //    {
-            //        //SignalAlarm(uxAlarmList.Items.IndexOf(a));
-            //    }
-            //}
+            foreach (Alarm a in MyAlarms)
+            {
+                if (a.Toggle && TimeSpan.Compare(a.SetTime.TimeOfDay, curr.TimeOfDay) == 0)
+                {
+                    SignalAlarm(uxAlarmList.Items.IndexOf(a), a);
+                }
+            }
         }
 
-        private void SignalAlarm()
+        private void SignalAlarm(int i, Alarm a)
         {
-            
+
         }
 
 
 
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Private backing variable for the alarms list
-        /// </summary>
-        private List<Alarm> MyAlarms = new List<Alarm>();
-        
-        ///// <summary>
-        ///// Property that holds all alarms
-        ///// </summary>
-        //public List<Alarm> alarmList
-        //{
-        //    get
-        //    {
-        //        return _alarms;
-        //    }
-        //    set
-        //    {
-        //        _alarms = value;
-        //    }
-        //}
-
-
+        //////////////////////////////////////////////////////////////////////////
+        private BindingList<Alarm> MyAlarms = new BindingList<Alarm>();
         
         private void uxMainWindow_Load(object sender, EventArgs e)
         {
@@ -104,7 +65,9 @@ namespace Alarm501
 
         private void uxAdd_Click(object sender, EventArgs e)
         {
-            AlarmEditor alarmPicker = new AlarmEditor();
+            DateTime dt = new DateTime();
+            Alarm a = new Alarm(dt);
+            AlarmEditor alarmPicker = new AlarmEditor(false, a);
             DialogResult TimePickDialog = alarmPicker.ShowDialog();
         }
 
@@ -112,35 +75,21 @@ namespace Alarm501
         public void addToList(Alarm a)
         {
             MyAlarms.Add(a);
-            uxAlarmList.DataSource = MyAlarms;
-            //Cant add 2
             uxAlarmList.Refresh();
 
             uxEdit.Enabled = true;
-            //Need to add the alarm to the list with
-            //uxAlarmList.Items.Add(alarm);
-
         }
 
+        private void uxAlarmList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //(uxAlarmList.SelectedItem as Alarm)
+        }
 
+        private void uxEdit_Click(object sender, EventArgs e)
+        {
+            AlarmEditor alarmEditor = new AlarmEditor(true, (uxAlarmList.SelectedItem as Alarm));
+            DialogResult EditorDialog = alarmEditor.ShowDialog();
 
-        //Timer Implementation
-
-        //System.Timers.Timer timer;
-
-        //private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        //{
-
-
-        //    DateTime currentTime = DateTime.Now;
-
-        //    if (currentTime.Hour == setTime.Hour && currentTime.Minute == setTime.Minute && currentTime.Second == setTime.Second)
-        //    {
-        //        timer.Stop();
-        //        Status = "TIMER GOING OFF!";
-
-        //        //Set off timer
-        //    }
-        //}
+        }
     }
 }
