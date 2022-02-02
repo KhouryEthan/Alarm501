@@ -71,10 +71,20 @@ namespace Alarm501
 
         /// Sets alarm and adds it to the list
         private void uxSet_Click(object sender, EventArgs e)
-        {  
+        {
+            if (IsEditing)
+            {
+                alarm.Toggle = uxToggle.Checked;
+                alarm.SetTime = timePicker.Value;
+            }
+            if (IsEditing == false)
+            {
                 Alarm alarmToAdd = createAlarm();
                 uxMainWindow.instance.addToList(alarmToAdd);
                 Close();
+            }
+            
+            Close();
         }
 
         private Alarm createAlarm()

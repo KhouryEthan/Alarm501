@@ -36,6 +36,7 @@ namespace Alarm501
             this.uxStop = new System.Windows.Forms.Button();
             this.uxAlarmList = new System.Windows.Forms.ListBox();
             this.alarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.uxLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.alarmBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +70,7 @@ namespace Alarm501
             this.uxSnooze.TabIndex = 3;
             this.uxSnooze.Text = "Snooze";
             this.uxSnooze.UseVisualStyleBackColor = true;
+            this.uxSnooze.Click += new System.EventHandler(this.uxSnooze_Click);
             // 
             // uxStop
             // 
@@ -93,11 +95,20 @@ namespace Alarm501
             // 
             this.alarmBindingSource.DataSource = typeof(Alarm501.Alarm);
             // 
+            // uxLabel
+            // 
+            this.uxLabel.AutoSize = true;
+            this.uxLabel.Location = new System.Drawing.Point(126, 376);
+            this.uxLabel.Name = "uxLabel";
+            this.uxLabel.Size = new System.Drawing.Size(0, 13);
+            this.uxLabel.TabIndex = 6;
+            // 
             // uxMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 464);
+            this.Controls.Add(this.uxLabel);
             this.Controls.Add(this.uxAlarmList);
             this.Controls.Add(this.uxStop);
             this.Controls.Add(this.uxSnooze);
@@ -108,6 +119,7 @@ namespace Alarm501
             this.Load += new System.EventHandler(this.uxMainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.alarmBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -119,6 +131,7 @@ namespace Alarm501
         private System.Windows.Forms.Button uxStop;
         public System.Windows.Forms.ListBox uxAlarmList;
         private System.Windows.Forms.BindingSource alarmBindingSource;
+        private System.Windows.Forms.Label uxLabel;
     }
 }
 

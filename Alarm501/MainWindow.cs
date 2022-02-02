@@ -48,7 +48,7 @@ namespace Alarm501
 
         private void SignalAlarm(int i, Alarm a)
         {
-
+            uxLabel.Text = "Alarm Going Off";
         }
 
 
@@ -90,6 +90,11 @@ namespace Alarm501
             AlarmEditor alarmEditor = new AlarmEditor(true, (uxAlarmList.SelectedItem as Alarm));
             DialogResult EditorDialog = alarmEditor.ShowDialog();
 
+        }
+
+        private void uxSnooze_Click(object sender, EventArgs e)
+        {
+            (uxAlarmList.SelectedItem as Alarm).IsSnoozed = true;
         }
     }
 }

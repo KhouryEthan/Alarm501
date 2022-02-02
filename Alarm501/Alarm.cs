@@ -64,6 +64,7 @@ namespace Alarm501
                 if (IsSnoozed)
                 {
                     SetTime = SetTime.AddSeconds(3.00);
+                    //IsSnoozed = false;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsSnoozed"));
                 }
             }
