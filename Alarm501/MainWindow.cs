@@ -61,7 +61,7 @@ namespace Alarm501
         private BindingList<Alarm> MyAlarms = new BindingList<Alarm>();
 
         public event PropertyChangedEventHandler PropertyChanged;
-        /
+        
         private void uxMainWindow_Load(object sender, EventArgs e)
         {
 
